@@ -24,7 +24,12 @@ mmec <- function(fixed, random, rcov, data, W,
     }
     nodata <-TRUE
     cat("data argument not provided \n")
-  }else{nodata=FALSE}
+  }else{
+    nodata=FALSE
+    if(class(data)[1] != "data.frame"){ # Stops if data is not a data.frame at top level
+      stop("data must be a data.frame") # Like a tibble, which can cause errors with eval()
+    }
+    }
 
   if(missing(rcov)){
     rcov = as.formula("~units")
